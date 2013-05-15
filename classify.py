@@ -13,6 +13,14 @@ def cp(src, dst):
     opf.close()
 
 def classify( infile, data_dir, out_dir, f_fnc = None ):
+    '''
+    assign classification labels to documents using trained classifier.
+    Optionally apply f_fnc to results (to move/copy documents into 
+    subdirectories of out_dir according to assigned label).
+    '''
+    #TODO - verbose as option
+    #TODO - k as option
+
     #initialize classifier
     nbc = load_classifier( infile )
     print('classifier loaded')
@@ -45,6 +53,7 @@ def classify( infile, data_dir, out_dir, f_fnc = None ):
             f_fnc( s, d )
 
 if __name__ == '__main__':
+    #TODO argument parsing
     cfile = 'd1.json'
     ddir = 'udata'
     odir = 'cdata'
