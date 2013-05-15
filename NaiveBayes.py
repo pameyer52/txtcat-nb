@@ -23,7 +23,6 @@ class NaiveBayesClassifier:
     def __init__(self, kclassnames):
         self.vocabulary = []
         self.all_words = []
-        self.k = 1
         self.vocab_set = False
         self.classify_prep = False
         self.helpers = {}
@@ -95,7 +94,7 @@ class NaiveBayesClassifier:
             self.n_c[kclass] = sum( self.helpers[kclass].words.values() )
         self.nv = len( self.vocabulary )
 
-    def classify(self, words, verbose = False):
+    def classify(self, words, k = 1, verbose = False):
         '''
         classify list of words
         '''
@@ -110,7 +109,7 @@ class NaiveBayesClassifier:
         for word in words:
             for kclass in self.helpers.keys():
                 c_w = self.helpers[kclass].words[word]
-                lpc = log( c_w + self.k, 10) - log(self.n_c[kclass] + (self.k*self.nv),10)
+                lpc = log( c_w + k, 10) - log(self.n_c[kclass] + (k*self.nv),10)
                 l_p[kclass] += lpc
         #pick class label with highest log prob
         if verbose:
