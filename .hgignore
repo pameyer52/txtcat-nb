@@ -1,0 +1,18 @@
+syntax: glob
+
+#usual python/vim ignores
+*.pyc
+*.swp
+
+#data and output directories
+data*
+udata*
+cdata*
+
+#trained classifiers
+*.json
+
+#pdflatex output (tech doc)
+*.aux
+*.log
+*.pdf

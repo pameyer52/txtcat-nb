@@ -1,0 +1,48 @@
+\documentclass{article}
+\title{Naive Bayes Classifier Technical Notes}
+\usepackage{amsmath} %for underset
+
+\newcommand{\argmax}[1]{\underset{#1}{\operatorname{arg}\,\operatorname{max}}\;}
+
+\begin{document}
+For document $d$ (composed of bag of words $w$) the probability of being a member of class $c$ denoted as:
+\begin{equation}\label{P_cd1}
+P(c|d) = \frac{ P(d|c) P(c) }{P(d)}
+\end{equation}
+$P(d)$ can be neglected for classification of a document.  Under the usual independence assumptions for words:
+\begin{equation}\label{P_cd2}
+P(c|d) = P(c) \prod_{w \in d}P(w|c)
+\end{equation}
+
+An unknown document is classified by picking the highest probability class (from set of class labels $C$):
+\begin{equation}\label{c_nb}
+c_{nb} = \arg\max_{c \in C} P(c) \prod_{w \in d} P(w|c)
+\end{equation}
+
+
+Using maximum likelihood estimates for parameters gives:
+\begin{equation}\label{P_c_ml}
+P(c) = \frac{count(d,c)}{count(d)}
+\end{equation}
+and
+\begin{equation}\label{P_wc_ml}
+P(w|c) = \frac{ count(w,c) }{count(c)}
+\end{equation}
+
+Since this can lead to zero probabilities in cases where there's an unseen word in training, use Laplacian/add-$k$ smoothing:
+\begin{equation}\label{P_wc_ml_k}
+P(w|c) = \frac{ count(w,c)+k}{count(c)+|V|}
+\end{equation}
+where $|V|$ is the size of the vocabulary (unique words present in training documents).
+
+Combining \ref{c_nb}, \ref{P_c_ml} and \ref{P_wc_ml_k} gives:
+\begin{equation}
+c_{nb,d} = \arg\max_{c \in C} \frac{count(d,c)}{count(c)} \prod_{w \in d}\frac{count(w,c)+k}{count(c) + |V|}
+\end{equation}
+
+And using logs (base 10) to avoid floating-point underflow gives the somewhat ugly-looking final classification approach:
+\begin{equation}
+c_{nb,d} = \arg\max_{c \in C} (log(count(d,c)) - log(count(c)))  \sum_{w \in d} ( log(count(w,c)+k) - log(count(c) + |V|)
+\end{equation}
+
+\end{document}
