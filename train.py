@@ -61,6 +61,48 @@ def train( data_dir, outfile , test_pct = 0.3, verbose = True):
     store_classifier( outfile, nbc )
 
 if __name__ == '__main__':
-    #TODO - argument parsing
-    #train('data0','d0.json')
-    train('data','d1.json')
+    def usage():
+        ''' show usage message and exit '''
+        print('usage message goes here')
+        sys.exit(1)
+
+    #data_dir, outfile, test_pct, verbose
+    # -d --datadir %a, -o --output %a, -p --pct %f , -v --verbose
+    import getopt
+    import sys
+    try:
+        opts, args = getopt.getopt( sys.argv[1:], 'hvd:o:p:',['help','verbose','datadir','output','pct'])
+    except getopt.GetoptError as err:
+        print(err)
+        usage()
+    if 0 != len(args):
+        usage()
+   
+    verbose = False
+    tpct = 0.3
+    ddir = None
+    ofile = None
+    for o,a in opts:
+        if o in ('-h','--help'):
+            usage()
+        elif o in ('-v', '--verbose'):
+            verbose = True
+        elif o in ('-d','--datadir'):
+            ddir = a
+        elif o in ('-o','--output'):
+            ofile = a
+        elif o in ('-p','--pct'):
+            tpct = float( a )
+        else:
+            print('unrecognized option %s (argument %s)' % (o,a) )
+            usage()
+    assert None != ddir, 'no input data directory specified'
+    assert None != ofile, 'no output file specified'
+    assert ( 0.0 <= tpct ) and ( tpct <= 1.0 ), 'test percentage out of range'
+
+    if not os.path.exists( ddir ):
+        usage()
+
+    #finally time to do work
+    train( ddir, ofile, tpct, verbose )
+
