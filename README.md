@@ -19,6 +19,14 @@ would correspond to a two class dataset with labels `a` and `b`, each with two d
 python >= 2.7 (for collections.Counter and json).
 
 ## Usage:
+### Training usage:
+For training data as above, storing trained classifier in `model.json`, using 30% of training files for each label for statistics:
+> train.py -d data/ -o model.json -p 0.3
+
+or
+> train.py --datadir=data/ --output=model.json --pct=0.3
+
+### Classification usage:
 TODO
 
 ## Known Issues:
