@@ -71,7 +71,7 @@ if __name__ == '__main__':
     import getopt
     import sys
     try:
-        opts, args = getopt.getopt( sys.argv[1:], 'hvd:o:p:',['help','verbose','datadir','output','pct'])
+        opts, args = getopt.getopt( sys.argv[1:], 'hvd:o:p:',['help','verbose','datadir=','output=','pct='])
     except getopt.GetoptError as err:
         print(err)
         usage()
