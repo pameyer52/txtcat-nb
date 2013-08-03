@@ -63,7 +63,7 @@ if __name__ == '__main__':
     #model_file, data_directory, output_directory
     # -m --model %a , -d --datadir %a 
     try:
-        opts, args = getopt.getopt( sys.argv[1:], 'hm:d:',['help','model','datadir'])
+        opts, args = getopt.getopt( sys.argv[1:], 'hm:d:',['help','model=','datadir='])
     except getopt.GetoptError as err:
         print(err)
         usage()

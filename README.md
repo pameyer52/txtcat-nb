@@ -16,7 +16,7 @@ For example,
 would correspond to a two class dataset with labels `a` and `b`, each with two data files.
 
 ## Requirements:
-python >= 2.7 (for collections.Counter and json).
+python >= 2.7 (for collections.Counter and json).  Also works with python3 (tested with 3.1.2).
 
 ## Usage:
 ### Training usage:
@@ -27,7 +27,10 @@ or
 > train.py --datadir=data/ --output=model.json --pct=0.3
 
 ### Classification usage:
-TODO
+> classify.py -m model.json -d unlabled-data/
+
+or
+> classify.py --model=model.json --datadir=unlabled-data/
 
 ## Known Issues:
  1. Training statics are rudimentary.
