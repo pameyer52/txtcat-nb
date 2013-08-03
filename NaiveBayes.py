@@ -42,7 +42,6 @@ class NaiveBayesClassifier:
         hd0 = d0['helpers']
         kclassnames = hd0.keys()
         c = cls( kclassnames )
-        c.k = d0['k']
         c.helpers = {}
         c.all_words = d0['all_words']
         for kc in kclassnames:
