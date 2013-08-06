@@ -33,7 +33,6 @@ or
 > classify.py --model=model.json --datadir=unlabled-data/
 
 ## Known Issues:
- 1. Training statics are rudimentary.
- 2. Doesn't currently support full cross-validation in training.
- 3. No pre-processing of words yet - accuracy for my current test cases is sufficient with no preprocessing.
+ 1. Doesn't currently support full cross-validation in training.
+ 2. No pre-processing of words yet - accuracy for my current test cases is sufficient with no preprocessing.
 

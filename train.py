@@ -5,6 +5,7 @@ import os
 from NaiveBayes import NaiveBayesClassifier
 from nbio import load_words, store_classifier
 import random
+from stats import calc_F1
 
 def train( data_dir, outfile , test_pct = 0.3, verbose = True):
     '''
@@ -39,24 +40,19 @@ def train( data_dir, outfile , test_pct = 0.3, verbose = True):
     
     #if we've picked a test set, use it
     if test_pct > 0.0:
-        #TODO - stats for each class
-        tp = 0
-        fn = 0
-        n_t = 0
+        preds = []
+        obs = []
         for (f, ws, l) in te_dl:
-            n_t += 1
+            obs.append(l)
             c = nbc.classify( ws )
-            if l == c:
-                tp += 1
-            else:
-                fn += 1
-        if n_t == 0 :
-            print('empty test set - no statistics')
-        else:
-            p = 100.0 * float(tp) / n_t
-            #TODO - precision/recall for multi-class classification
-            print('%d of %d test files classified correctly : %4.2f %% (%d training files)' % ( tp, n_t, p, n_tr ) )
-
+            preds.append(c)
+        sts = calc_F1( preds, obs )
+        for l in labels:
+            st = sts[l]
+            f1 = st['F1'] * 100.0
+            pr = st['precision'] * 100.0
+            rc = st['recall'] * 100.0
+            print('%s : F1=%f precision=%f recall=%f' % ( l, f1, pr, rc) )
     #store trained classifier
     store_classifier( outfile, nbc )
 
