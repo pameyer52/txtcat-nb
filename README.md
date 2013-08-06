@@ -11,7 +11,7 @@ For example,
 > >ls data/
 > data/a data/b
 > >ls data/*
-> data/a/1.txt data/a/2.txt data/b/3.txt data/4.txt
+> data/a/1.txt data/a/2.txt data/b/3.txt data/b/4.txt
 
 would correspond to a two class dataset with labels `a` and `b`, each with two data files.
 
