@@ -5,6 +5,7 @@
 \newcommand{\argmax}[1]{\underset{#1}{\operatorname{arg}\,\operatorname{max}}\;}
 
 \begin{document}
+\section{Naive Bayes}
 For document $d$ (composed of bag of words $w$) the probability of being a member of class $c$ denoted as:
 \begin{equation}\label{P_cd1}
 P(c|d) = \frac{ P(d|c) P(c) }{P(d)}
@@ -45,4 +46,18 @@ And using logs (base 10) to avoid floating-point underflow gives the somewhat ug
 c_{nb,d} = \arg\max_{c \in C} (log(count(d,c)) - log(count(c)))  \sum_{w \in d} ( log(count(w,c)+k) - log(count(c) + |V|)
 \end{equation}
 
+\section{Precision, Recall and F1 Statistics}
+The precision, recall and F1 statistics are calculated using standard definations.
+%can't use "\#" (for "number of") in math mode, so use count instead
+\begin{equation}\label{precision}
+Precesion = \frac{count(true\_positives)}{ count(true\_positives) + count(false\_positives)}
+\end{equation}
+\begin{equation}\label{recall}
+Recall = \frac{count(true\_positives)}{ count(true\_positives) + count(false\_negatives)}
+\end{equation}
+\begin{equation}\label{F1}
+F1 = \frac{2*Precision*Recall}{Precision+Recall} 
+\end{equation}
+
+These are reported on both an overall and per-label basis.
 \end{document}
