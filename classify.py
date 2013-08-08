@@ -29,12 +29,17 @@ def classify( infile, data_dir, out_dir ):
         print('%s classified as %s' % (f, l) )
 
 if __name__ == '__main__':
-    def usage():
-        ''' show usage message and exit '''
-        print('usage message goes here') #TODO - useful message
-        sys.exit(1)
     import getopt
     import sys
+    def usage():
+        ''' show usage message and exit '''
+        print('classify (txtcat-nb)')
+        print('options:')
+        print('\t-h --help\t\t\tshow this usage information')
+        print('\t-m --model=\t\t\tclassification model file')
+        print('\t-d --datadir=\t\t\tdata directory')
+        sys.exit(1)
+
     #model_file, data_directory
     # -m --model %a , -d --datadir %a 
     try:

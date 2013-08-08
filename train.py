@@ -63,15 +63,21 @@ def train( data_dir, outfile , test_pct = 0.3, verbose = True):
     store_classifier( outfile, nbc )
 
 if __name__ == '__main__':
+    import getopt
+    import sys
     def usage():
         ''' show usage message and exit '''
-        print('usage message goes here') #TODO - useful message
+        print('train (txtcat-nb)')
+        print('options:')
+        print('\t-h --help\t\t\tshow this usage information')
+        print('\t-v --verbose\t\t\tverbose processing')
+        print('\t-o --output=\t\t\tclassification model file')
+        print('\t-d --datadir=\t\t\tdata directory')
+        print('\t-p --pct=\t\t\tpercentage of data to use for validation')
         sys.exit(1)
 
     #data_dir, outfile, test_pct, verbose
     # -d --datadir %a, -o --output %a, -p --pct %f , -v --verbose
-    import getopt
-    import sys
     try:
         opts, args = getopt.getopt( sys.argv[1:], 'hvd:o:p:',['help','verbose','datadir=','output=','pct='])
     except getopt.GetoptError as err:
@@ -98,8 +104,10 @@ if __name__ == '__main__':
         else:
             print('unrecognized option %s (argument %s)' % (o,a) )
             usage()
-    assert None != ddir, 'no input data directory specified'
-    assert None != ofile, 'no output file specified'
+    if None == ddir:
+        usage()
+    if None == ofile:
+        usage()
     assert ( 0.0 <= tpct ) and ( tpct <= 1.0 ), 'test percentage out of range'
 
     if not os.path.exists( ddir ):
