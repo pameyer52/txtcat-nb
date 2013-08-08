@@ -39,6 +39,15 @@ def train( data_dir, outfile , test_pct = 0.3, verbose = True):
                 n_tr += 1
     
     #if we've picked a test set, use it
+    def show_stats(s, lbl = None):
+        ''' display F1 stats '''
+        f1 = s['F1'] * 100.0
+        pr = s['precision'] * 100.0
+        rc = s['recall'] * 100.0
+        if None != lbl:
+            print('%s : F1=%f precision=%f recall=%f' % ( lbl, f1, pr, rc) )
+        else:
+            print('F1=%f precision=%f recall=%f' % ( f1, pr, rc) )
     if test_pct > 0.0:
         preds = []
         obs = []
@@ -47,12 +56,9 @@ def train( data_dir, outfile , test_pct = 0.3, verbose = True):
             c = nbc.classify( ws )
             preds.append(c)
         sts = calc_F1( preds, obs )
+        show_stats( sts['overall'] )
         for l in labels:
-            st = sts[l]
-            f1 = st['F1'] * 100.0
-            pr = st['precision'] * 100.0
-            rc = st['recall'] * 100.0
-            print('%s : F1=%f precision=%f recall=%f' % ( l, f1, pr, rc) )
+            show_stats( sts[l], l )
     #store trained classifier
     store_classifier( outfile, nbc )
 
