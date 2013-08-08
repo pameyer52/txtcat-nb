@@ -65,7 +65,7 @@ def train( data_dir, outfile , test_pct = 0.3, verbose = True):
 if __name__ == '__main__':
     def usage():
         ''' show usage message and exit '''
-        print('usage message goes here')
+        print('usage message goes here') #TODO - useful message
         sys.exit(1)
 
     #data_dir, outfile, test_pct, verbose

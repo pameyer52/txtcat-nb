@@ -18,7 +18,6 @@ def classify( infile, data_dir, out_dir, f_fnc = None ):
     Optionally apply f_fnc to results (to move/copy documents into 
     subdirectories of out_dir according to assigned label).
     '''
-    #TODO - verbose as option
     #TODO - k as option
     #TODO - confusion stats 
 
@@ -56,7 +55,7 @@ def classify( infile, data_dir, out_dir, f_fnc = None ):
 if __name__ == '__main__':
     def usage():
         ''' show usage message and exit '''
-        print('usage message goes here')
+        print('usage message goes here') #TODO - useful message
         sys.exit(1)
     import getopt
     import sys
