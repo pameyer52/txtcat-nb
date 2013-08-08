@@ -30,8 +30,8 @@ def calc_F1(preds, obs):
         F1 = ( 2 * prec * rec )  / ( prec + rec )
         r = { 'F1':F1, 'precision':prec, 'recall':rec }
         rs[ sy ] = r
-    prec = tp_overall + ( tp_overall + fp_overall )
-    rec = tp_overall + ( tp_overall + fn_overall )
+    prec = tp_overall / ( tp_overall + fp_overall )
+    rec = tp_overall / ( tp_overall + fn_overall )
     F1 = ( 2 * prec * rec )  / ( prec + rec )
     rs[ 'overall' ] = { 'F1':F1, 'precision':prec, 'recall':rec }
     return rs
