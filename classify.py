@@ -5,7 +5,7 @@ import os
 from NaiveBayes import NaiveBayesClassifier
 from nbio import load_words, load_classifier
 
-def classify( infile, data_dir, out_dir ):
+def classify( infile, data_dir ):
     '''
     assign classification labels to documents using trained classifier.
     '''
@@ -51,7 +51,6 @@ if __name__ == '__main__':
         usage()
     mfile = None
     ddir = None
-    odir = None
     for o,a in opts:
         if o in ('-h',' --help'):
             usage()
@@ -66,5 +65,5 @@ if __name__ == '__main__':
         usage()
     if None == ddir:
         usage()
-    classify( mfile, ddir, odir )
+    classify( mfile, ddir )
 
