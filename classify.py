@@ -5,11 +5,10 @@ import os
 from NaiveBayes import NaiveBayesClassifier
 from nbio import load_words, load_classifier
 
-def classify( infile, data_dir ):
+def classify( infile, data_dir, k_smooth = 1 ):
     '''
     assign classification labels to documents using trained classifier.
     '''
-    #TODO - k as option
     #TODO - confusion stats 
 
     #initialize classifier
@@ -25,7 +24,7 @@ def classify( infile, data_dir ):
     
     #classify
     for (f, ws) in fws:
-        l = nbc.classify( ws )
+        l = nbc.classify( ws, k_smooth )
         print('%s classified as %s' % (f, l) )
 
 if __name__ == '__main__':
@@ -38,12 +37,11 @@ if __name__ == '__main__':
         print('\t-h --help\t\t\tshow this usage information')
         print('\t-m --model=\t\t\tclassification model file')
         print('\t-d --datadir=\t\t\tdata directory')
+        print('\t-k --smooth=\t\t\tsmoothing constant (default 1)')
         sys.exit(1)
 
-    #model_file, data_directory
-    # -m --model %a , -d --datadir %a 
     try:
-        opts, args = getopt.getopt( sys.argv[1:], 'hm:d:',['help','model=','datadir='])
+        opts, args = getopt.getopt( sys.argv[1:], 'hm:d:k:',['help','model=','datadir=','smooth='])
     except getopt.GetoptError as err:
         print(err)
         usage()
@@ -51,6 +49,7 @@ if __name__ == '__main__':
         usage()
     mfile = None
     ddir = None
+    k = 1
     for o,a in opts:
         if o in ('-h',' --help'):
             usage()
@@ -58,6 +57,9 @@ if __name__ == '__main__':
             mfile = a
         elif o in ('-d', '--datadir'):
             ddir = a
+        elif o in ('-k', '--smooth'):
+            k = int( a )
+            assert k >= 0, 'smoothing constant must be non-negative'
         else:
             print('unrecognized option %s (argument %s)' % (o,a) )
             usage()
@@ -65,5 +67,5 @@ if __name__ == '__main__':
         usage()
     if None == ddir:
         usage()
-    classify( mfile, ddir )
+    classify( mfile, ddir, k )
 
