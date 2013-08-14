@@ -36,14 +36,14 @@ P(w|c) = \frac{ count(w,c)+k}{count(c)+|V|}
 \end{equation}
 where $|V|$ is the size of the vocabulary (unique words present in training documents).
 
-Combining \ref{c_nb}, \ref{P_c_ml} and \ref{P_wc_ml_k} gives:
+Combining equations \ref{c_nb}, \ref{P_c_ml} and \ref{P_wc_ml_k} gives:
 \begin{equation}
 c_{nb,d} = \arg\max_{c \in C} \frac{count(d,c)}{count(c)} \prod_{w \in d}\frac{count(w,c)+k}{count(c) + |V|}
 \end{equation}
 
 And using logs (base 10) to avoid floating-point underflow gives the somewhat ugly-looking final classification approach:
-\begin{equation}
-c_{nb,d} = \arg\max_{c \in C} (log(count(d,c)) - log(count(c)))  \sum_{w \in d} ( log(count(w,c)+k) - log(count(c) + |V|)
+\begin{equation}\label{cmx}
+c_{nb,d} = \arg\max_{c \in C} (log(count(d,c)) - log(count(c))  \sum_{w \in d} ( log(count(w,c)+k) - log(count(c) + |V|) ) )
 \end{equation}
 
 \section{Precision, Recall and F1 Statistics}
@@ -60,4 +60,13 @@ F1 = \frac{2*Precision*Recall}{Precision+Recall}
 \end{equation}
 
 These are reported on both an overall and per-label basis.
+\section{Active Learning and Uncertainty}
+In classification, the log probability gain can be considered as an simple uncertainty score:
+\begin{equation}\label{lpg1}
+LPG = LPG_{c_{max}} - LPG_{c_{2nd highest}}
+\end{equation}
+using the term maximized by equation \ref{cmx}:
+\begin{equation}\label{lpg2}
+LPG_{c} = log(count(d,c)) - log(count(c))  \sum_{w \in d} ( log(count(w,c)+k) - log(count(c) + |V|) )
+\end{equation}
 \end{document}
