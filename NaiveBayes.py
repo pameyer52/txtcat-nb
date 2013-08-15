@@ -93,7 +93,7 @@ class NaiveBayesClassifier:
             self.n_c[kclass] = sum( self.helpers[kclass].words.values() )
         self.nv = len( self.vocabulary )
 
-    def classify(self, words, k = 1, verbose = False):
+    def classify(self, words, k = 1 ):
         '''
         classify list of words
         '''
@@ -102,7 +102,7 @@ class NaiveBayesClassifier:
             self.set_vocab()
         if not self.classify_prep:
             self.prep_classify()
-
+        import operator
         l_p = dict( self.lp )
         #classify
         for word in words:
@@ -110,8 +110,9 @@ class NaiveBayesClassifier:
                 c_w = self.helpers[kclass].words[word]
                 lpc = log( c_w + k, 10) - log(self.n_c[kclass] + (k*self.nv),10)
                 l_p[kclass] += lpc
-        #pick class label with highest log prob
-        if verbose:
-            print( l_p )
-        return max( l_p, key = l_p.get )
+        #get prediction and uncertainty/confusion (LPG)
+        c_srt = sorted(l_p, key = l_p.get ,reverse=True)
+        lp_0 = l_p[ c_srt[0] ]
+        lp_1 = l_p[ c_srt[1] ]
+        return ( c_srt[0], lp_0 - lp_1 )
 

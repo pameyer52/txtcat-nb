@@ -9,8 +9,6 @@ def classify( infile, data_dir, k_smooth = 1 ):
     '''
     assign classification labels to documents using trained classifier.
     '''
-    #TODO - confusion stats 
-
     #initialize classifier
     nbc = load_classifier( infile )
     print('classifier loaded')
@@ -24,8 +22,8 @@ def classify( infile, data_dir, k_smooth = 1 ):
     
     #classify
     for (f, ws) in fws:
-        l = nbc.classify( ws, k_smooth )
-        print('%s classified as %s' % (f, l) )
+        (l,u) = nbc.classify( ws, k_smooth )
+        print('%s classified as %s LPG=%f' % (f, l,u) )
 
 if __name__ == '__main__':
     import getopt
