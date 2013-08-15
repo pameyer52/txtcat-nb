@@ -1,10 +1,12 @@
 \documentclass{article}
 \title{Naive Bayes Classifier Technical Notes}
+\author{Pete Meyer}
 \usepackage{amsmath} %for underset
 
 \newcommand{\argmax}[1]{\underset{#1}{\operatorname{arg}\,\operatorname{max}}\;}
 
 \begin{document}
+\maketitle
 \section{Naive Bayes}
 For document $d$ (composed of bag of words $w$) the probability of being a member of class $c$ denoted as:
 \begin{equation}\label{P_cd1}

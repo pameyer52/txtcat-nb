@@ -1,7 +1,7 @@
 # txtcat-nb
 
 ## Description:
-txtcat-nb is a simple text file classifier using naive bayes.
+txtcat-nb is a simple text file classifier using naive bayes.  A somewhat rudimentary description of the math involved is in techdoc.tex (but better descriptions of the technique exist elsewhere).
 
 ## Data
 Training data is assumed to be in a single directory; subdirectories within the data directory used for labels.
